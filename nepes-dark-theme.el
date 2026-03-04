@@ -16,9 +16,9 @@
 
 (let ((class '((class color) (min-colors 256)))
       ;; Named colors
-      (bg-deep "#141416") (bg "#1C1C1E") (bg-dim "#242426")
-      (bg-alt "#2C2C2E") (bg-hl "#3A3A3E") (bg-overlay "#484850")
-      (fg "#D8D8DC") (fg-dim "#B0B0B6") (fg-subtle "#8E8E96") (fg-muted "#6E6E78")
+      (bg-deep "#161412") (bg "#1E1C1A") (bg-dim "#262422")
+      (bg-alt "#2E2C2A") (bg-hl "#3E3A38") (bg-overlay "#504848")
+      (fg "#DCD8D4") (fg-dim "#B6B0AC") (fg-subtle "#96908C") (fg-muted "#787068")
       (blue "#4A6ABF") (blue-dim "#23438E") (blue-bright "#6B8AD8")
       (red "#D4252C") (red-dim "#A81E23") (red-bright "#E85B61")
       (green "#43AD49") (green-dim "#348A3A") (green-bright "#6BCF70")
@@ -26,7 +26,7 @@
       (magenta "#9B6ABF") (magenta-dim "#7A4FA0") (magenta-bright "#BB8EDA")
       (cyan "#3A9BA5") (cyan-dim "#2D7A82") (cyan-bright "#5CBDC7")
       (yellow "#E8C55A") (yellow-dim "#C9A63E") (yellow-bright "#F5DA7F")
-      (cursor "#D8D8DC") (selection "#2D4A6A") (border "#3A3A3E") (comment "#6E6E78")
+      (cursor "#DCD8D4") (selection "#2D4A6A") (border "#3E3A38") (comment "#787068")
       ;; Heading colors (rainbow)
       (heading1 "#4A6ABF") (heading2 "#9B6ABF") (heading3 "#3A9BA5")
       (heading4 "#43AD49") (heading5 "#FEA413") (heading6 "#D4252C")
