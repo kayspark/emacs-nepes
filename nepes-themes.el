@@ -2,20 +2,21 @@
 
 ;; Author: kaypark
 ;; URL: https://github.com/kayspark/emacs-nepes
-;; Version: 0.1.0
+;; Version: 2.0.0
 ;; Package-Requires: ((emacs "28.1"))
 ;; Keywords: faces, theme
 
 ;;; Commentary:
 
-;; Corporate colorscheme derived from Nepes LaTeX template brand colors.
-;; Provides `nepes-dark' and `nepes-light' themes.
+;; Corporate colorscheme derived from Nepes brand identity.
+;; Built on modus-themes (built-in since Emacs 28) for comprehensive face coverage.
 ;;
 ;; Use `nepes-themes-toggle' to switch between dark and light variants.
-;; Customize `nepes-themes-headings' to control heading font sizes and styles.
-;; Set `nepes-themes-mixed-fonts' to t for fixed-pitch code faces.
+;; Customize heading styles with `nepes-themes-headings'.
 
 ;;; Code:
+
+(require 'modus-themes)
 
 (defgroup nepes-themes nil
   "Nepes themes."
@@ -48,6 +49,32 @@ Values are lists of properties: variable-pitch, bold, height number."
   "Themes to toggle between."
   :type '(list symbol symbol)
   :group 'nepes-themes)
+
+(defconst nepes-themes-palette-common
+  '((fg-heading-1 blue)
+    (fg-heading-2 magenta)
+    (fg-heading-3 cyan)
+    (fg-heading-4 green)
+    (fg-heading-5 yellow)
+    (fg-heading-6 red)
+    (fg-heading-7 yellow-warmer)
+    (fg-heading-8 blue-warmer)
+    (keyword blue)
+    (builtin blue-warmer)
+    (fnname cyan)
+    (string green)
+    (type magenta)
+    (constant yellow-warmer)
+    (variable fg-main)
+    (comment fg-dim)
+    (docstring green-faint)
+    (err red)
+    (warning yellow-warmer)
+    (info blue)
+    (fg-added green)
+    (fg-changed yellow-warmer)
+    (fg-removed red))
+  "Common palette mappings shared by all Nepes themes.")
 
 ;;;###autoload
 (defun nepes-themes-toggle ()

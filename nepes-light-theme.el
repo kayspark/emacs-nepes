@@ -1,4 +1,4 @@
-;;; nepes-light-theme.el --- Nepes light theme -*- lexical-binding: t; -*-
+;;; nepes-light-theme.el --- Nepes light theme (modus derivative) -*- lexical-binding: t; -*-
 
 ;; Author: kaypark
 ;; URL: https://github.com/kayspark/emacs-nepes
@@ -6,298 +6,216 @@
 ;;; Commentary:
 
 ;; Light variant of the Nepes corporate colorscheme.
+;; Built on modus-themes infrastructure for 200+ face coverage.
 ;; Requires `nepes-themes' for shared infrastructure.
 
 ;;; Code:
 
 (require 'nepes-themes)
 
-(deftheme nepes-light "Nepes corporate light theme.")
+;;; Layer 1: Core palette (named colors)
 
-(let ((class '((class color) (min-colors 256)))
-      ;; Named colors
-      (bg-deep "#FFFFFF") (bg "#F8F8F8") (bg-dim "#F0F0F0")
-      (bg-alt "#E7E6E6") (bg-hl "#D8D7D7") (bg-overlay "#C9C8C8")
-      (fg "#1C1C1E") (fg-dim "#3A3A3E") (fg-subtle "#5A5A64") (fg-muted "#7A7A84")
-      (blue "#23438E") (blue-dim "#1B3470") (blue-bright "#2E55B0")
-      (red "#C4181F") (red-dim "#9E1319") (red-bright "#D4252C")
-      (green "#2E8A34") (green-dim "#246C29") (green-bright "#43AD49")
-      (orange "#D08A10") (orange-dim "#A86E0D") (orange-bright "#FEA413")
-      (magenta "#7A4FA0") (magenta-dim "#613E80") (magenta-bright "#9B6ABF")
-      (cyan "#2D7A82") (cyan-dim "#236068") (cyan-bright "#3A9BA5")
-      (yellow "#9A7E20") (yellow-dim "#7C6519") (yellow-bright "#C9A63E")
-      (cursor "#1C1C1E") (selection "#B8D0F0") (border "#D8D7D7") (comment "#7A7A84")
-      ;; Heading colors (rainbow)
-      (heading1 "#23438E") (heading2 "#7A4FA0") (heading3 "#2D7A82")
-      (heading4 "#2E8A34") (heading5 "#D08A10") (heading6 "#C4181F")
-      (heading7 "#9A7E20") (heading8 "#2E55B0"))
+(defvar nepes-light-palette
+  (modus-themes-generate-palette
+   '(;; Backgrounds
+     (bg-main  "#F8F8F8")
+     (bg-dim   "#F0F0F0")
+     (bg-active "#D8D7D7")
+     (bg-inactive "#E7E6E6")
+     (border  "#D8D7D7")
 
-  (let ((h1-attrs (nepes-themes--heading-attributes 1))
-        (h2-attrs (nepes-themes--heading-attributes 2))
-        (h3-attrs (nepes-themes--heading-attributes 3))
-        (h4-attrs (nepes-themes--heading-attributes 4))
-        (h5-attrs (nepes-themes--heading-attributes 5))
-        (h6-attrs (nepes-themes--heading-attributes 6))
-        (h7-attrs (nepes-themes--heading-attributes 7))
-        (h8-attrs (nepes-themes--heading-attributes 8)))
+     ;; Foregrounds
+     (fg-main  "#1C1C1E")
+     (fg-dim   "#3A3A3E")
+     (fg-alt   "#5A5A64")
 
-    (custom-theme-set-faces
-     'nepes-light
+     ;; Core hues — WCAG-refined for light background
+     (blue          "#23438E")
+     (blue-warmer   "#2E55B0")
+     (blue-cooler   "#1B3470")
+     (blue-faint    "#4A6090")
+     (blue-intense  "#23438E")
 
-     ;; --- Basic ---
-     `(default ((,class :background ,bg :foreground ,fg)))
-     `(cursor ((,class :background ,cursor)))
-     `(region ((,class :background ,selection :extend t)))
-     `(highlight ((,class :background ,bg-hl)))
-     `(hl-line ((,class :background ,bg-dim)))
-     `(fringe ((,class :background ,bg)))
-     `(vertical-border ((,class :foreground ,border)))
-     `(window-divider ((,class :foreground ,border)))
-     `(window-divider-first-pixel ((,class :foreground ,bg)))
-     `(window-divider-last-pixel ((,class :foreground ,bg)))
-     `(border ((,class :foreground ,border)))
-     `(shadow ((,class :foreground ,fg-muted)))
-     `(link ((,class :foreground ,blue :underline t)))
-     `(link-visited ((,class :foreground ,magenta :underline t)))
-     `(escape-glyph ((,class :foreground ,orange)))
-     `(homoglyph ((,class :foreground ,orange)))
-     `(minibuffer-prompt ((,class :foreground ,blue :weight bold)))
-     `(success ((,class :foreground ,green :weight bold)))
-     `(warning ((,class :foreground ,orange :weight bold)))
-     `(error ((,class :foreground ,red :weight bold)))
+     (red           "#C4181F")
+     (red-warmer    "#D4252C")
+     (red-cooler    "#9E1319")
+     (red-faint     "#A04048")
+     (red-intense   "#C4181F")
 
-     ;; --- Line numbers ---
-     `(line-number ((,class :foreground ,fg-muted :background ,bg)))
-     `(line-number-current-line ((,class :foreground ,orange :weight bold :background ,bg-dim)))
+     (green         "#2A8030")
+     (green-warmer  "#43AD49")
+     (green-cooler  "#246C29")
+     (green-faint   "#408048")
+     (green-intense "#2A8030")
 
-     ;; --- Search ---
-     `(isearch ((,class :background ,orange :foreground ,bg-deep :weight bold)))
-     `(lazy-highlight ((,class :background ,bg-hl :foreground ,fg)))
-     `(isearch-fail ((,class :background ,red-dim :foreground ,bg-deep)))
-     `(match ((,class :background ,selection :foreground ,fg)))
+     (yellow        "#866E1C")
+     (yellow-warmer "#D08A10")
+     (yellow-cooler "#7C6519")
+     (yellow-faint  "#8A7838")
+     (yellow-intense "#C9A63E")
 
-     ;; --- Mode line ---
-     `(mode-line ((,class :background ,bg-alt :foreground ,fg :box (:line-width 1 :color ,border))))
-     `(mode-line-inactive ((,class :background ,bg-dim :foreground ,fg-muted :box (:line-width 1 :color ,bg-dim))))
-     `(mode-line-emphasis ((,class :foreground ,blue :weight bold)))
-     `(mode-line-highlight ((,class :background ,bg-hl)))
-     `(mode-line-buffer-id ((,class :foreground ,blue :weight bold)))
-     `(header-line ((,class :background ,bg-dim :foreground ,fg)))
+     (magenta       "#7A4FA0")
+     (magenta-warmer "#9B6ABF")
+     (magenta-cooler "#613E80")
+     (magenta-faint "#7A6090")
+     (magenta-intense "#7A4FA0")
 
-     ;; --- Tab bar ---
-     `(tab-bar ((,class :background ,bg-deep :foreground ,fg-muted)))
-     `(tab-bar-tab ((,class :background ,bg :foreground ,fg :weight bold :box (:line-width 1 :color ,blue-dim))))
-     `(tab-bar-tab-inactive ((,class :background ,bg-deep :foreground ,fg-muted)))
+     (cyan          "#2D7A82")
+     (cyan-warmer   "#3A9BA5")
+     (cyan-cooler   "#236068")
+     (cyan-faint    "#487880")
+     (cyan-intense  "#2D7A82")
 
-     ;; --- Completion ---
-     `(completions-common-part ((,class :foreground ,blue :weight bold)))
-     `(completions-first-difference ((,class :foreground ,orange)))
+     ;; Extended named colors
+     (rust  "#99640B")
+     (gold  "#7C6519")
+     (olive "#707079")
 
-     ;; --- Font lock (syntax) ---
-     `(font-lock-comment-face ((,class :foreground ,comment :slant italic)))
-     `(font-lock-comment-delimiter-face ((,class :foreground ,comment :slant italic)))
-     `(font-lock-string-face ((,class :foreground ,green)))
-     `(font-lock-doc-face ((,class :foreground ,green-dim :slant italic)))
-     `(font-lock-keyword-face ((,class :foreground ,blue)))
-     `(font-lock-builtin-face ((,class :foreground ,blue-bright)))
-     `(font-lock-function-name-face ((,class :foreground ,cyan)))
-     `(font-lock-function-call-face ((,class :foreground ,cyan)))
-     `(font-lock-variable-name-face ((,class :foreground ,fg)))
-     `(font-lock-variable-use-face ((,class :foreground ,fg)))
-     `(font-lock-type-face ((,class :foreground ,magenta)))
-     `(font-lock-constant-face ((,class :foreground ,orange)))
-     `(font-lock-number-face ((,class :foreground ,orange)))
-     `(font-lock-preprocessor-face ((,class :foreground ,magenta-dim)))
-     `(font-lock-negation-char-face ((,class :foreground ,red)))
-     `(font-lock-warning-face ((,class :foreground ,orange :weight bold)))
-     `(font-lock-regexp-face ((,class :foreground ,green-bright)))
-     `(font-lock-escape-face ((,class :foreground ,orange)))
-     `(font-lock-property-name-face ((,class :foreground ,fg-dim)))
-     `(font-lock-property-use-face ((,class :foreground ,fg-dim)))
-     `(font-lock-operator-face ((,class :foreground ,fg-subtle)))
-     `(font-lock-punctuation-face ((,class :foreground ,fg-subtle)))
-     `(font-lock-bracket-face ((,class :foreground ,fg-subtle)))
-     `(font-lock-delimiter-face ((,class :foreground ,fg-subtle)))
-     `(font-lock-misc-punctuation-face ((,class :foreground ,fg-subtle)))
+     ;; Diff backgrounds
+     (bg-added          "#E8F5E8")
+     (bg-added-faint    "#F0FAF0")
+     (bg-added-refine   "#C8E8C8")
+     (bg-removed        "#F5E8E8")
+     (bg-removed-faint  "#FAF0F0")
+     (bg-removed-refine "#E8C8C8")
+     (bg-changed        "#F5F0E0")
+     (bg-changed-faint  "#FAF8F0")
+     (bg-changed-refine "#E8E0C0")
 
-     ;; --- Diff ---
-     `(diff-added ((,class :background "#E8F5E8" :foreground ,green)))
-     `(diff-removed ((,class :background "#F5E8E8" :foreground ,red)))
-     `(diff-changed ((,class :background "#F5F0E0" :foreground ,orange)))
-     `(diff-header ((,class :background ,bg-alt :foreground ,blue :weight bold)))
-     `(diff-file-header ((,class :background ,bg-alt :foreground ,blue :weight bold)))
-     `(diff-hunk-header ((,class :background ,bg-hl :foreground ,magenta)))
-     `(diff-indicator-added ((,class :foreground ,green :weight bold)))
-     `(diff-indicator-removed ((,class :foreground ,red :weight bold)))
-     `(diff-indicator-changed ((,class :foreground ,orange :weight bold)))
-     `(diff-refine-added ((,class :background "#C8E8C8" :foreground ,green-dim)))
-     `(diff-refine-removed ((,class :background "#E8C8C8" :foreground ,red-dim)))
-     `(diff-refine-changed ((,class :background "#E8E0C0" :foreground ,orange-dim)))
+     ;; Subtle backgrounds
+     (bg-red-subtle     "#F5E0E0")
+     (bg-green-subtle   "#E0F0E0")
+     (bg-yellow-subtle  "#F0ECD0")
+     (bg-blue-subtle    "#E0E4F0")
+     (bg-magenta-subtle "#EDE0F0")
+     (bg-cyan-subtle    "#E0F0F0")
 
-     ;; --- Org mode ---
-     `(org-level-1 ((,class :foreground ,heading1 ,@h1-attrs)))
-     `(org-level-2 ((,class :foreground ,heading2 ,@h2-attrs)))
-     `(org-level-3 ((,class :foreground ,heading3 ,@h3-attrs)))
-     `(org-level-4 ((,class :foreground ,heading4 ,@h4-attrs)))
-     `(org-level-5 ((,class :foreground ,heading5 ,@h5-attrs)))
-     `(org-level-6 ((,class :foreground ,heading6 ,@h6-attrs)))
-     `(org-level-7 ((,class :foreground ,heading7 ,@h7-attrs)))
-     `(org-level-8 ((,class :foreground ,heading8 ,@h8-attrs)))
-     `(org-document-title ((,class :foreground ,blue-dim :weight bold :height 1.8)))
-     `(org-document-info ((,class :foreground ,fg-dim)))
-     `(org-document-info-keyword ((,class :foreground ,fg-muted)))
-     `(org-meta-line ((,class :foreground ,fg-muted)))
-     `(org-block ((,class :background ,bg-deep :extend t)))
-     `(org-block-begin-line ((,class :foreground ,fg-muted :background ,bg-dim :extend t)))
-     `(org-block-end-line ((,class :foreground ,fg-muted :background ,bg-dim :extend t)))
-     `(org-code ((,class :foreground ,green :inherit fixed-pitch)))
-     `(org-verbatim ((,class :foreground ,orange :inherit fixed-pitch)))
-     `(org-table ((,class :foreground ,fg :inherit fixed-pitch)))
-     `(org-formula ((,class :foreground ,orange)))
-     `(org-todo ((,class :foreground ,red :weight bold)))
-     `(org-done ((,class :foreground ,green :weight bold)))
-     `(org-headline-done ((,class :foreground ,fg-muted)))
-     `(org-date ((,class :foreground ,cyan :underline t)))
-     `(org-link ((,class :foreground ,blue :underline t)))
-     `(org-tag ((,class :foreground ,fg-muted :weight normal)))
-     `(org-priority ((,class :foreground ,orange)))
-     `(org-checkbox ((,class :foreground ,blue :weight bold)))
-     `(org-ellipsis ((,class :foreground ,fg-muted :underline nil)))
-     `(org-drawer ((,class :foreground ,fg-muted)))
-     `(org-special-keyword ((,class :foreground ,fg-muted)))
+     ;; Nuanced backgrounds
+     (bg-red-nuanced     "#FAF0F0")
+     (bg-green-nuanced   "#F0FAF0")
+     (bg-yellow-nuanced  "#FAF8F0")
+     (bg-blue-nuanced    "#F0F2FA")
+     (bg-magenta-nuanced "#F5F0FA")
+     (bg-cyan-nuanced    "#F0FAFA")
 
-     ;; --- Markdown ---
-     `(markdown-header-face-1 ((,class :foreground ,heading1 ,@h1-attrs)))
-     `(markdown-header-face-2 ((,class :foreground ,heading2 ,@h2-attrs)))
-     `(markdown-header-face-3 ((,class :foreground ,heading3 ,@h3-attrs)))
-     `(markdown-header-face-4 ((,class :foreground ,heading4 ,@h4-attrs)))
-     `(markdown-header-face-5 ((,class :foreground ,heading5 ,@h5-attrs)))
-     `(markdown-header-face-6 ((,class :foreground ,heading6 ,@h6-attrs)))
-     `(markdown-code-face ((,class :background ,bg-deep :inherit fixed-pitch)))
-     `(markdown-inline-code-face ((,class :foreground ,green :inherit fixed-pitch)))
-     `(markdown-link-face ((,class :foreground ,blue :underline t)))
-     `(markdown-url-face ((,class :foreground ,cyan :underline t)))
+     ;; Intense backgrounds
+     (bg-red-intense     "#FF8F88")
+     (bg-green-intense   "#6FDF6F")
+     (bg-yellow-intense  "#F0D000")
+     (bg-blue-intense    "#5580FF")
+     (bg-magenta-intense "#C07FFF")
+     (bg-cyan-intense    "#60CFCF")
 
-     ;; --- Treesitter ---
-     `(tree-sitter-hl-face:keyword ((,class :foreground ,blue)))
-     `(tree-sitter-hl-face:function ((,class :foreground ,cyan)))
-     `(tree-sitter-hl-face:function.call ((,class :foreground ,cyan)))
-     `(tree-sitter-hl-face:string ((,class :foreground ,green)))
-     `(tree-sitter-hl-face:type ((,class :foreground ,magenta)))
-     `(tree-sitter-hl-face:variable ((,class :foreground ,fg)))
-     `(tree-sitter-hl-face:variable.builtin ((,class :foreground ,orange)))
-     `(tree-sitter-hl-face:constant ((,class :foreground ,orange)))
-     `(tree-sitter-hl-face:constant.builtin ((,class :foreground ,orange-bright)))
-     `(tree-sitter-hl-face:number ((,class :foreground ,orange)))
-     `(tree-sitter-hl-face:operator ((,class :foreground ,fg-subtle)))
-     `(tree-sitter-hl-face:comment ((,class :foreground ,comment :slant italic)))
-     `(tree-sitter-hl-face:property ((,class :foreground ,fg-dim)))
-     `(tree-sitter-hl-face:punctuation ((,class :foreground ,fg-subtle)))
-     `(tree-sitter-hl-face:tag ((,class :foreground ,blue)))
+     ;; Special
+     (bg-completion "#B8D0F0")
+     (bg-hover      "#D8D7D7")
+     (bg-hover-secondary "#E7E6E6")
+     (bg-hl-line    "#F0F0F0")
 
-     ;; --- Diagnostics (flymake / flycheck) ---
-     `(flymake-error ((,class :underline (:style wave :color ,red))))
-     `(flymake-warning ((,class :underline (:style wave :color ,orange))))
-     `(flymake-note ((,class :underline (:style wave :color ,blue))))
-     `(flycheck-error ((,class :underline (:style wave :color ,red))))
-     `(flycheck-warning ((,class :underline (:style wave :color ,orange))))
-     `(flycheck-info ((,class :underline (:style wave :color ,blue))))
+     ;; Graphs
+     (bg-graph-red-0    "#EF7969")
+     (bg-graph-red-1    "#FFAAB4")
+     (bg-graph-green-0  "#2CC22C")
+     (bg-graph-green-1  "#60E060")
+     (bg-graph-yellow-0 "#F0D000")
+     (bg-graph-yellow-1 "#F5E870")
+     (bg-graph-blue-0   "#2FAFEF")
+     (bg-graph-blue-1   "#79B8FF")
+     (bg-graph-magenta-0 "#BF94FE")
+     (bg-graph-magenta-1 "#E0B0FF"))
+   'warm)
+  "Core palette for `nepes-light'.")
 
-     ;; --- Eglot / LSP ---
-     `(eglot-highlight-symbol-face ((,class :background ,bg-hl)))
-     `(eglot-inlay-hint-face ((,class :foreground ,fg-muted :slant italic :height 0.9)))
+;;; Layer 2: User palette (empty, for user overrides)
 
-     ;; --- Magit ---
-     `(magit-section-heading ((,class :foreground ,blue :weight bold)))
-     `(magit-section-highlight ((,class :background ,bg-dim)))
-     `(magit-branch-local ((,class :foreground ,cyan)))
-     `(magit-branch-remote ((,class :foreground ,green)))
-     `(magit-tag ((,class :foreground ,orange)))
-     `(magit-hash ((,class :foreground ,fg-muted)))
-     `(magit-diff-added ((,class :background "#E8F5E8" :foreground ,green)))
-     `(magit-diff-added-highlight ((,class :background "#C8E8C8" :foreground ,green-dim)))
-     `(magit-diff-removed ((,class :background "#F5E8E8" :foreground ,red)))
-     `(magit-diff-removed-highlight ((,class :background "#E8C8C8" :foreground ,red-dim)))
-     `(magit-diff-context ((,class :foreground ,fg-dim)))
-     `(magit-diff-context-highlight ((,class :background ,bg-dim :foreground ,fg-dim)))
-     `(magit-diff-hunk-heading ((,class :background ,bg-hl :foreground ,fg)))
-     `(magit-diff-hunk-heading-highlight ((,class :background ,bg-overlay :foreground ,fg :weight bold)))
-     `(magit-diffstat-added ((,class :foreground ,green)))
-     `(magit-diffstat-removed ((,class :foreground ,red)))
-     `(magit-log-author ((,class :foreground ,orange)))
-     `(magit-log-date ((,class :foreground ,fg-muted)))
+(defvar nepes-light-palette-user nil
+  "User overrides for `nepes-light' palette.")
 
-     ;; --- Vertico / Corfu / Consult ---
-     `(vertico-current ((,class :background ,selection :extend t)))
-     `(corfu-default ((,class :background ,bg-alt)))
-     `(corfu-current ((,class :background ,selection)))
-     `(corfu-border ((,class :background ,border)))
-     `(corfu-bar ((,class :background ,blue)))
-     `(orderless-match-face-0 ((,class :foreground ,blue :weight bold)))
-     `(orderless-match-face-1 ((,class :foreground ,magenta :weight bold)))
-     `(orderless-match-face-2 ((,class :foreground ,cyan :weight bold)))
-     `(orderless-match-face-3 ((,class :foreground ,green :weight bold)))
-     `(consult-preview-match ((,class :background ,selection)))
+;;; Layer 3: Semantic overrides (mappings)
 
-     ;; --- Which-key ---
-     `(which-key-key-face ((,class :foreground ,blue :weight bold)))
-     `(which-key-group-description-face ((,class :foreground ,magenta)))
-     `(which-key-command-description-face ((,class :foreground ,fg)))
-     `(which-key-separator-face ((,class :foreground ,fg-muted)))
+(defvar nepes-light-palette-overrides
+  `(;; Syntax
+    (keyword blue)
+    (builtin blue-warmer)
+    (fnname cyan)
+    (string green)
+    (type magenta)
+    (constant yellow-warmer)
+    (variable fg-main)
+    (comment fg-alt)
+    (docstring green-faint)
+    (docmarkup green-faint)
 
-     ;; --- Doom modeline ---
-     `(doom-modeline-bar ((,class :background ,blue-dim)))
-     `(doom-modeline-bar-inactive ((,class :background ,bg-alt)))
-     `(doom-modeline-buffer-file ((,class :foreground ,fg :weight bold)))
-     `(doom-modeline-buffer-major-mode ((,class :foreground ,blue :weight bold)))
-     `(doom-modeline-buffer-minor-mode ((,class :foreground ,fg-muted)))
-     `(doom-modeline-buffer-modified ((,class :foreground ,orange :weight bold)))
-     `(doom-modeline-evil-insert-state ((,class :foreground ,green)))
-     `(doom-modeline-evil-normal-state ((,class :foreground ,blue)))
-     `(doom-modeline-evil-visual-state ((,class :foreground ,magenta)))
-     `(doom-modeline-evil-replace-state ((,class :foreground ,red)))
-     `(doom-modeline-evil-operator-state ((,class :foreground ,cyan)))
-     `(doom-modeline-evil-emacs-state ((,class :foreground ,orange)))
-     `(doom-modeline-info ((,class :foreground ,green)))
-     `(doom-modeline-warning ((,class :foreground ,orange)))
-     `(doom-modeline-urgent ((,class :foreground ,red)))
-     `(doom-modeline-project-dir ((,class :foreground ,blue)))
+    ;; Operators and delimiters
+    (bracket fg-alt)
+    (delimiter fg-alt)
+    (operator fg-alt)
+    (number yellow-cooler)
+    (punctuation fg-alt)
 
-     ;; --- Diff-hl ---
-     `(diff-hl-insert ((,class :foreground ,green :background "#E8F5E8")))
-     `(diff-hl-delete ((,class :foreground ,red :background "#F5E8E8")))
-     `(diff-hl-change ((,class :foreground ,orange :background "#F5F0E0")))
+    ;; Headings (rainbow)
+    (fg-heading-1 blue)
+    (fg-heading-2 magenta)
+    (fg-heading-3 cyan)
+    (fg-heading-4 green)
+    (fg-heading-5 yellow)
+    (fg-heading-6 red)
+    (fg-heading-7 yellow-warmer)
+    (fg-heading-8 blue-warmer)
 
-     ;; --- Embark ---
-     `(embark-keybinding ((,class :foreground ,blue :weight bold)))
+    ;; Status
+    (err red)
+    (warning yellow-warmer)
+    (info blue)
 
-     ;; --- Show-paren ---
-     `(show-paren-match ((,class :foreground ,orange :background ,bg-hl :weight bold)))
-     `(show-paren-mismatch ((,class :foreground ,bg-deep :background ,red :weight bold)))
+    ;; Diff/VC
+    (fg-added green)
+    (fg-added-intense green-cooler)
+    (fg-changed yellow-warmer)
+    (fg-changed-intense yellow-intense)
+    (fg-removed red)
+    (fg-removed-intense red-cooler)
 
-     ;; --- Whitespace ---
-     `(whitespace-trailing ((,class :background ,red-dim)))
-     `(whitespace-tab ((,class :foreground ,bg-hl)))
-     `(whitespace-space ((,class :foreground ,bg-hl)))
+    ;; Line numbers
+    (fg-line-number-inactive fg-alt)
+    (fg-line-number-active yellow-warmer)
+    (bg-line-number-inactive bg-main)
+    (bg-line-number-active bg-dim)
 
-     ;; --- Ansi colors (for term/vterm/shell) ---
-     `(ansi-color-black ((,class :foreground ,fg :background ,fg)))
-     `(ansi-color-red ((,class :foreground ,red :background ,red)))
-     `(ansi-color-green ((,class :foreground ,green :background ,green)))
-     `(ansi-color-yellow ((,class :foreground ,orange :background ,orange)))
-     `(ansi-color-blue ((,class :foreground ,blue :background ,blue)))
-     `(ansi-color-magenta ((,class :foreground ,magenta :background ,magenta)))
-     `(ansi-color-cyan ((,class :foreground ,cyan :background ,cyan)))
-     `(ansi-color-white ((,class :foreground ,fg-dim :background ,fg-dim)))
-     `(ansi-color-bright-black ((,class :foreground ,fg-muted :background ,fg-muted)))
-     `(ansi-color-bright-red ((,class :foreground ,red-bright :background ,red-bright)))
-     `(ansi-color-bright-green ((,class :foreground ,green-bright :background ,green-bright)))
-     `(ansi-color-bright-yellow ((,class :foreground ,orange-bright :background ,orange-bright)))
-     `(ansi-color-bright-blue ((,class :foreground ,blue-bright :background ,blue-bright)))
-     `(ansi-color-bright-magenta ((,class :foreground ,magenta-bright :background ,magenta-bright)))
-     `(ansi-color-bright-cyan ((,class :foreground ,cyan-bright :background ,cyan-bright)))
-     `(ansi-color-bright-white ((,class :foreground ,bg-deep :background ,bg-deep)))
-     )))
+    ;; Prompts
+    (fg-prompt blue)
+
+    ;; Completion
+    (fg-completion-match-0 blue)
+    (fg-completion-match-1 magenta)
+    (fg-completion-match-2 cyan)
+    (fg-completion-match-3 green)
+
+    ;; Paren match
+    (fg-paren-match yellow-warmer)
+    (bg-paren-match "#D8D7D7")
+
+    ;; Links
+    (underline-link blue)
+    (underline-link-visited magenta)
+
+    ;; Region
+    (bg-region "#B8D0F0")
+
+    ;; Prose
+    (prose-todo red)
+    (prose-done green))
+  "Semantic palette overrides for `nepes-light'.")
+
+;;; Theme declaration
+
+(modus-themes-theme 'nepes-light
+  'nepes
+  "Nepes corporate light theme — clean light background with brand colors."
+  'light
+  'nepes-light-palette
+  'nepes-light-palette-user
+  'nepes-light-palette-overrides)
 
 (provide-theme 'nepes-light)
 ;;; nepes-light-theme.el ends here
