@@ -140,7 +140,7 @@
     (fnname cyan)
     (string green)
     (type magenta)
-    (constant yellow-warmer)
+    (constant yellow-cooler)
     (variable fg-main)
     (comment fg-alt)
     (docstring green-faint)
@@ -160,7 +160,7 @@
     (fg-heading-4 green)
     (fg-heading-5 yellow)
     (fg-heading-6 red)
-    (fg-heading-7 yellow-warmer)
+    (fg-heading-7 fg-alt)
     (fg-heading-8 blue-warmer)
 
     ;; Status
@@ -178,7 +178,7 @@
 
     ;; Line numbers
     (fg-line-number-inactive fg-alt)
-    (fg-line-number-active yellow-warmer)
+    (fg-line-number-active fg-dim)
     (bg-line-number-inactive bg-main)
     (bg-line-number-active bg-dim)
 
@@ -192,7 +192,7 @@
     (fg-completion-match-3 green)
 
     ;; Paren match
-    (fg-paren-match yellow-warmer)
+    (fg-paren-match blue)
     (bg-paren-match "#504848")
 
     ;; Links
