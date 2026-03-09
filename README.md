@@ -4,6 +4,18 @@ Corporate colorscheme for Emacs derived from the Nepes LaTeX template brand colo
 
 Provides two themes: `nepes-dark` and `nepes-light`.
 
+## Screenshots
+
+| Dark | Light |
+|------|-------|
+| ![Dark](docs/dark.png) | ![Light](docs/light.png) |
+
+### Demo
+
+| Dark | Light |
+|------|-------|
+| ![Dark](docs/dark.gif) | ![Light](docs/light.gif) |
+
 ## Installation
 
 ### Manual
