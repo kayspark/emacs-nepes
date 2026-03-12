@@ -27,22 +27,22 @@
      ;; Foregrounds
      (fg-main  "#DCD8D4")
      (fg-dim   "#B6B0AC")
-     (fg-alt   "#96908C")
+     (fg-alt   "#8A9199")
 
      ;; Core hues — WCAG-refined
-     (blue          "#6A84CA")
+     (blue          "#5C8CFF")
      (blue-warmer   "#6B8AD8")
      (blue-cooler   "#4A6ABF")
      (blue-faint    "#8A9FD4")
      (blue-intense  "#23438E")
 
-     (red           "#E1575C")
+     (red           "#FF5C5C")
      (red-warmer    "#E85B61")
      (red-cooler    "#D4252C")
      (red-faint     "#D08080")
      (red-intense   "#A81E23")
 
-     (green         "#43AD49")
+     (green         "#3DDC84")
      (green-warmer  "#6BCF70")
      (green-cooler  "#348A3A")
      (green-faint   "#80C085")
@@ -107,7 +107,7 @@
      (bg-cyan-intense    "#2266AE")
 
      ;; Special
-     (bg-completion "#2D4A6A")
+     (bg-completion "#2E4C7A")
      (bg-hover      "#3E3A38")
      (bg-hover-secondary "#2E2C2A")
      (bg-hl-line    "#262422")
@@ -200,8 +200,7 @@
     (underline-link-visited magenta)
 
     ;; Region
-    (bg-region "#2D4A6A")
-
+    (bg-region "#2E4C7A")
     ;; Prose
     (prose-todo red)
     (prose-done green))
