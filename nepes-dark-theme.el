@@ -66,38 +66,43 @@
      (cyan-faint    "#5CBDC7")
      (cyan-intense  "#2D7A82")
 
-     ;; Utility (mapped to palette_data.py surface tokens)
+     ;; Extended named colors
+     (rust  "#CC8410")
+     (gold  "#C9A63E")
+     (olive "#8D847B")
+
+     ;; Special
      (bg-completion "#2E4C7A")
      (bg-hover      "#3E3A38")
      (bg-hover-secondary "#2E2C2A")
      (bg-hl-line    "#262422")
 
-     ;; Diff backgrounds (best-effort derived colors)
-     (bg-added          "#1E2E1E")
-     (bg-added-faint    "#192619")
-     (bg-added-refine   "#2A4A2A")
-     (bg-removed        "#2E1E1E")
-     (bg-removed-faint  "#261919")
-     (bg-removed-refine "#4A2A2A")
-     (bg-changed        "#2E2E1E")
-     (bg-changed-faint  "#262619")
-     (bg-changed-refine "#4A4A2A")
+     ;; Diff backgrounds
+     (bg-added                 "#1E2E1E")
+     (bg-added-faint           "#192619")
+     (bg-added-refine          "#2A4A2A")
+     (bg-removed               "#2E1E1E")
+     (bg-removed-faint         "#261919")
+     (bg-removed-refine        "#4A2A2A")
+     (bg-changed               "#2E2E1E")
+     (bg-changed-faint         "#262619")
+     (bg-changed-refine        "#4A4A2A")
 
      ;; Subtle backgrounds for regions, prompts
-     (bg-red-subtle     "#3A1C1C")
-     (bg-green-subtle   "#1C2E1C")
-     (bg-yellow-subtle  "#2E2A1C")
-     (bg-blue-subtle    "#1C2040")
-     (bg-magenta-subtle "#2E1C30")
-     (bg-cyan-subtle    "#1C2E30")
+     (bg-red-subtle            "#3A1C1C")
+     (bg-green-subtle          "#1C2E1C")
+     (bg-yellow-subtle         "#2E2A1C")
+     (bg-blue-subtle           "#1C2040")
+     (bg-magenta-subtle        "#2E1C30")
+     (bg-cyan-subtle           "#1C2E30")
 
      ;; Nuanced backgrounds (lighter tint)
-     (bg-red-nuanced     "#2C1414")
-     (bg-green-nuanced   "#142214")
-     (bg-yellow-nuanced  "#221E14")
-     (bg-blue-nuanced    "#141828")
-     (bg-magenta-nuanced "#221422")
-     (bg-cyan-nuanced    "#142222")
+     (bg-red-nuanced           "#2C1414")
+     (bg-green-nuanced         "#142214")
+     (bg-yellow-nuanced        "#221E14")
+     (bg-blue-nuanced          "#141828")
+     (bg-magenta-nuanced       "#221422")
+     (bg-cyan-nuanced          "#142222")
 
      ;; Intense backgrounds
      (bg-red-intense     "#A81E23")
@@ -106,9 +111,20 @@
      (bg-blue-intense    "#23438E")
      (bg-magenta-intense "#7A4FA0")
      (bg-cyan-intense    "#2D7A82")
-   )
+
+     ;; Graphs
+     (bg-graph-blue-0          "#2FAFEF")
+     (bg-graph-blue-1          "#1F2F8F")
+     (bg-graph-green-0         "#0FED00")
+     (bg-graph-green-1         "#007800")
+     (bg-graph-magenta-0       "#BF94FE")
+     (bg-graph-magenta-1       "#5F509F")
+     (bg-graph-red-0           "#B52C2C")
+     (bg-graph-red-1           "#702020")
+     (bg-graph-yellow-0        "#F1E00A")
+     (bg-graph-yellow-1        "#B08940"))
    'warm)
-  "Core palette for `nepes-dark`.")
+  "Core palette for `nepes-dark'.")
 
 ;;; Layer 2: User palette (empty, for user overrides)
 
@@ -185,6 +201,7 @@
 
     ;; Region
     (bg-region "#2E4C7A")
+
     ;; Prose
     (prose-todo red)
     (prose-done green))
